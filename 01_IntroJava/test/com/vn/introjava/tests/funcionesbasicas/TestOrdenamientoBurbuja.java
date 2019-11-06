@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.vn.introjava.tests;
+package com.vn.introjava.tests.funcionesbasicas;
 
 import com.vn.introjava.funcionesbasicas.Ordenarmiento;
 import org.junit.Before;
@@ -15,10 +15,7 @@ import static org.junit.Assert.*;
  *
  * @author pc
  */
-public class TestOrdenamiento {
-    
-    public TestOrdenamiento() {
-    }
+public class TestOrdenamientoBurbuja {
     
     @BeforeClass
     public static void setUpClass() {
@@ -37,7 +34,7 @@ public class TestOrdenamiento {
         // int[] array =  { 4,2,3,1};
         // int[] arrayOrdenadoOk = {1,2,3,4};
         int[] arrayOrdPorFuncion;
-        arrayOrdPorFuncion = Ordenarmiento.ordenarArray(array);
+        arrayOrdPorFuncion = Ordenarmiento.burbuja(array);
         assertArrayEquals(arrayOrdPorFuncion, arrayOrdenadoOk);
     }
     /**
