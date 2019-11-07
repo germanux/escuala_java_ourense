@@ -1,29 +1,33 @@
-EJERCICIO POR PAREJAS:
-- Jerarquía de clases:
+EJERCICIO POR PAREJAS (A, B):
+- Jerarquía de clases:				
 
 			Propiedades	 Metodos	Salida
-Animal		nombre		get/set		Nombre propio del animal
+	(A)										
+Animal		nombre		get/set		Nombre propio del animal	
 			edad		get/set		Edad actual
 			peso		get/set		Peso en Kg con precisión en gramos
-			acuatico	get			Valores posibles:
+	(B)		acuatico	get			Valores posibles:
 										NO_DEFINIDO, ACUATICO, TERRESTRE, ANFIBIO		
 						
 						alimentar	"<nombre> mastica y come <alimento>"
 									Ejem: "Toby mastica y come pienso"
-						desplazar	????  depende del tipo de animal
+	(A)					desplazar	????  depende del tipo de animal
 						toString()	Mostrar todos los campos (propiedades)
 			
-						mostrar(Animal)   -> Método que recibde un animal
+	(B)					mostrar(Animal)   -> Método que recibde un animal
 									y muestra su toString(). Uso!!!:
 									Animal.mostrar(toby);
-									
+(A)								
 Perro		raza		get/set		Raza del perro
 						ladrar()	"<nombre> dice 'Guau guau guau!"
 						desplazar	"<nombre> corre contento"
 						toString()	Info del perro como animal, que es un perro, y su raza
-												
+(B)											
 Percebe					alimentar	"<nombre> se nutre de <alimento>"
 						toString()	Además de la info como animal, que es un percebe
+
+(C)						
+
 
 NOTAS:	Nombre y edad deben ser personalizables al "nacer"
 		Deben tener un peso original y poder modificarse a posteriori
