@@ -6,6 +6,7 @@
 package com.vn.introjava.tests.poo;
 
 import com.vn.introjava.poo.Coche;
+import com.vn.introjava.poo.CocheRally;
 import com.vn.introjava.poo.FabricaCoches;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -77,14 +78,14 @@ public class OperacionesBasicasObjetos {
         miCoche = new Coche();
         
         assertTrue(miCoche.arrancar());
-        for (int i = -2; i < 6; i++) {
+        for (int i = 1; i <= 4; i++) {
             if (i == 4)
                 assertTrue(miCoche.arrancar(i));
             else
                 assertFalse(miCoche.arrancar(i));
         }
     }
-    @Test (expected = IllegalArgumentException.class)
+    @Test (expected = IllegalArgumentException.class, timeout = 100)
     public void gestionExcepciones() throws Exception {
         Coche c = FabricaCoches.crear("");
     }
@@ -97,8 +98,16 @@ public class OperacionesBasicasObjetos {
             assertTrue(ex instanceof IllegalArgumentException);
         }
     }
-    @Test (expected = IllegalArgumentException.class)
+    @Test
+    public void usandoConstructoresSobrecargados() {
+        Coche c = new Coche("Ferrari");
+        assertEquals(c.getMarca(), "Ferrari");
+    }
+    /* Como no recibe la excepción, falla el test
+    *
+    @Test (expected = IllegalArgumentException.class, timeout = 100)
     public void gestionExcepcionesMAL() throws Exception {
         Coche c = FabricaCoches.crear("Una nmarca");
-    }
+    }  /* */
+    
 }
