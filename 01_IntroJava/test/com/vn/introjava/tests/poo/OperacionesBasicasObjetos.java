@@ -6,6 +6,9 @@
 package com.vn.introjava.tests.poo;
 
 import com.vn.introjava.poo.Coche;
+import com.vn.introjava.poo.FabricaCoches;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -29,9 +32,13 @@ public class OperacionesBasicasObjetos {
         assertNotNull(miCocheFindes);
         assertNotEquals(miCoche, miCocheFindes);
         
-        //  miCoche.marca = "..."; No compila
-        miCoche.setMarca("Kia");
-        miCocheFindes.setMarca("Hammer");
+        try {
+            //  miCoche.marca = "..."; No compila
+            miCoche.setMarca("Kia");
+            miCocheFindes.setMarca("Hammer");
+        } catch (Exception ex) {
+            Logger.getLogger(OperacionesBasicasObjetos.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.out.println("miCoche.marca       = " + miCoche.getMarca());
         System.out.println("miCocheFindes.marca = " 
                 + miCocheFindes.getMarca());
@@ -39,7 +46,11 @@ public class OperacionesBasicasObjetos {
         
         miCocheFindes = miCoche;
         assertEquals(miCoche, miCocheFindes);
-        miCoche.setMarca("Hammer Limusina");
+        try {
+            miCoche.setMarca("Hammer Limusina");
+        } catch (Exception ex) {
+            Logger.getLogger(OperacionesBasicasObjetos.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.out.println("miCoche.marca       = " + miCoche.getMarca());
         System.out.println("miCocheFindes.marca = " 
                 + miCocheFindes.getMarca());
@@ -50,13 +61,44 @@ public class OperacionesBasicasObjetos {
         // System.out.println("miCoche.marca       = " + refAmiCoche.getMarca());
         // Sí podemos... 
         assertTrue(refAmiCoche.equals(miCoche));
-        
-        
+        miCoche.arrancar();
+        assertEquals(miCoche.getNumRuedas(), 4);
         // Le decimos al Rec. Basura que queremos borrar 
         // todos los obj
         miCoche = null;
         miCocheFindes = null;
-        System.gc();
+        // Invocación recolector basura (sólo es sugerencia)
+        System.gc();        
+    }
+    
+    @Test
+    public void testSobrecargaMetodos() {
+        Coche miCoche = null;        
+        miCoche = new Coche();
         
+        assertTrue(miCoche.arrancar());
+        for (int i = -2; i < 6; i++) {
+            if (i == 4)
+                assertTrue(miCoche.arrancar(i));
+            else
+                assertFalse(miCoche.arrancar(i));
+        }
+    }
+    @Test (expected = IllegalArgumentException.class)
+    public void gestionExcepciones() throws Exception {
+        Coche c = FabricaCoches.crear("");
+    }
+    @Test // (expected = IllegalArgumentException.class)
+    public void gestionExcepciones_2() {
+        try {
+            Coche c = FabricaCoches.crear("");
+        } catch (Exception ex) {
+            Logger.getLogger(OperacionesBasicasObjetos.class.getName()).log(Level.SEVERE, null, ex);
+            assertTrue(ex instanceof IllegalArgumentException);
+        }
+    }
+    @Test (expected = IllegalArgumentException.class)
+    public void gestionExcepcionesMAL() throws Exception {
+        Coche c = FabricaCoches.crear("Una nmarca");
     }
 }
