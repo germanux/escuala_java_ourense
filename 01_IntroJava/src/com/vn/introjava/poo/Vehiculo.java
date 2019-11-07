@@ -10,7 +10,7 @@ package com.vn.introjava.poo;
  *
  * @author pc
  */
-public abstract class Vehiculo {
+public abstract class Vehiculo extends Object {
      
     protected TipoVehiculo tipo;
 
@@ -27,5 +27,10 @@ public abstract class Vehiculo {
     }
     public abstract void avanzar();                  // Declaración
     
-    public abstract void mostrarEstado();
+    /**
+     * Simplemente muestra la marca y si está arrancado
+     */
+    public void mostrarEstado() {
+        System.out.println(toString() );
+    }
 }

@@ -61,14 +61,12 @@ public class Coche  extends Vehiculo {
         arrancado = "arrancar".equals(orden);
         return arrancado;
     }
-    /**
-     * Simplemente muestra la marca y si está arrancado
-     */
+
     @Override
-    public void mostrarEstado() {
-        System.out.println(tipo + " - " + getMarca()
+    public String toString() {
+        return tipo + " - " + getMarca()
                 + (arrancado ? " arrancado." 
-                             : " apagado.") );
+                             : " apagado.");
     }
     
     public String getMarca() {
@@ -100,4 +98,5 @@ public class Coche  extends Vehiculo {
     public void avanzar() {
         System.out.println("Ruedo un poco");
     }
+    
 }

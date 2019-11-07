@@ -85,13 +85,13 @@ public class CocheRally extends Coche {
     // 2do, el metodo anterior ya no vale, renombrar a mostrarEstadoAntiguo()
     // que indique que es "Coche de rally: <marca>, rozamiento, arrancado"
 
+
     @Override
-    public void mostrarEstado() {
-        
-        System.out.println(tipo + ": " + getMarca()
+    public String toString() {
+        return tipo + ": " + getMarca()
                 + ", rozam = " + rozamiento 
                 + (isArrancado() ? " arrancado." 
-                             : " apagado.") );
+                             : " apagado.");
     }
     
     
