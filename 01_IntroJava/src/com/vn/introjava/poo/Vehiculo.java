@@ -26,4 +26,6 @@ public abstract class Vehiculo {
         this.tipo = tipo;                   // Implementación
     }
     public abstract void avanzar();                  // Declaración
+    
+    public abstract void mostrarEstado();
 }

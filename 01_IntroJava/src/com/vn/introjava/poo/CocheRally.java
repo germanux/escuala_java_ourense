@@ -88,7 +88,7 @@ public class CocheRally extends Coche {
     @Override
     public void mostrarEstado() {
         
-        System.out.println("Coche de rally: " + getMarca()
+        System.out.println(tipo + ": " + getMarca()
                 + ", rozam = " + rozamiento 
                 + (isArrancado() ? " arrancado." 
                              : " apagado.") );

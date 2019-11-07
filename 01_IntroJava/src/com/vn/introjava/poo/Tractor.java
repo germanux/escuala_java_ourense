@@ -20,4 +20,10 @@ public class Tractor extends Vehiculo {
     public void avanzar() {
         System.out.println("Ruedo y siego.");
     }    
+
+    @Override
+    public void mostrarEstado() {
+        System.out.println(tipo);
+    }
+    
 }

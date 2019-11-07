@@ -64,8 +64,9 @@ public class Coche  extends Vehiculo {
     /**
      * Simplemente muestra la marca y si está arrancado
      */
+    @Override
     public void mostrarEstado() {
-        System.out.println("Coche " + getMarca()
+        System.out.println(tipo + " - " + getMarca()
                 + (arrancado ? " arrancado." 
                              : " apagado.") );
     }
