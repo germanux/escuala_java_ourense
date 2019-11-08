@@ -5,11 +5,11 @@ EJERCICIO POR PAREJAS (A, B):
 	(A)										
 Animal		nombre		get/set		Nombre propio del animal	
 			edad		get/set		Edad actual
-			peso		get/set		Peso en Kg con precisión en gramos
-	(B)		acuatico	get			Valores posibles:
+	(C)		peso		get/set		Peso en Kg con precisión en gramos
+	(B)		habitat		get			Valores posibles:
 										NO_DEFINIDO, ACUATICO, TERRESTRE, ANFIBIO		
 						
-						alimentar	"<nombre> mastica y come <alimento>"
+	(C)					alimentar	"<nombre> mastica y come <alimento>"
 									Ejem: "Toby mastica y come pienso"
 	(A)					desplazar	????  depende del tipo de animal
 						toString()	Mostrar todos los campos (propiedades)
@@ -27,10 +27,10 @@ Percebe					alimentar	"<nombre> se nutre de <alimento>"
 						toString()	Además de la info como animal, que es un percebe
 
 (C)						
-
+	Elegid otro animal, y sobreescribid al menos un método
 
 NOTAS:	Nombre y edad deben ser personalizables al "nacer"
 		Deben tener un peso original y poder modificarse a posteriori
-		Si es acuatico es de sólo lectura
+		Si es habitat es de sólo lectura
 		Los percebes se adhieren a una roca.
 		

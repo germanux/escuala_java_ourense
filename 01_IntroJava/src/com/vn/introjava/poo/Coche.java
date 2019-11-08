@@ -5,7 +5,7 @@
  */
 package com.vn.introjava.poo;
 
-/**
+/** Pues un coche carajo
  *
  * @author pc
  */
