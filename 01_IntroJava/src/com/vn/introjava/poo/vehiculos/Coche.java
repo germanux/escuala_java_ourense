@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.vn.introjava.poo;
+package com.vn.introjava.poo.vehiculos;
 
 /** Pues un coche carajo
  *
@@ -99,4 +99,8 @@ public class Coche  extends Vehiculo {
         System.out.println("Ruedo un poco");
     }
     
+    public void mover(float m) {
+        avanzar();
+        System.out.println(m + " metros");
+    }
 }
