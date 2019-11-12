@@ -39,4 +39,13 @@ public class DaoUsuarioList implements IDaoUsuario {
         }
         return null;
     }
+
+    @Override
+    public void modificar(int index, Usuario usuarioConDatos) throws Exception {
+        
+        Usuario usuarioAmodificar = listaUsuarios.get(index);
+        usuarioAmodificar.setEdad(usuarioConDatos.getEdad());
+        usuarioAmodificar.setNombre(usuarioConDatos.getNombre());
+        // listaUsuarios.set(index, usuarioConDatos);
+    }
 }
