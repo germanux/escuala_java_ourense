@@ -37,9 +37,13 @@ public class TestDaoCocheSimple {
         assertEquals(daoCoche.obtenerPorMarca("Coche C").getMarca(), "Coche C");
         assertEquals(daoCoche.obtenerPorIndice(2).getMarca(), "Coche C");
     }
+    
     @Test
-    public void testUsuarioDao() throws Exception {
+    public void testUsuarioDaoList() throws Exception {
         IDaoUsuario daoUsuario= new DaoUsuarioList();
+        testUsuarioDao(daoUsuario);
+    }
+    public void testUsuarioDao(IDaoUsuario daoUsuario) throws Exception {
         daoUsuario.crear(new Usuario("Juan", 30));
         daoUsuario.crear(new Usuario("Ana", 31));
         daoUsuario.crear(new Usuario("Bea", 32));

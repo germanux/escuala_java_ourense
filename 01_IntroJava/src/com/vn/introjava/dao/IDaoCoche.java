@@ -12,11 +12,9 @@ import com.vn.introjava.poo.vehiculos.FabricaCoches;
  *
  * @author pc
  */
-public interface IDaoCoche {
+public interface IDaoCoche extends IGenericDao<Coche> {
     
     public void crear(String marca) throws Exception; 
-    
-    public Coche obtenerPorIndice(int index);
     
     public Coche obtenerPorMarca(String marca);
     

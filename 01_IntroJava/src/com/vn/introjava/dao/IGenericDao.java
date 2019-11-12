@@ -14,4 +14,6 @@ public interface IGenericDao<T> {
     public abstract void crear(T  objetoNuevo) throws Exception;
     
     T obtenerPorIndice(int index);
+    
+
 }

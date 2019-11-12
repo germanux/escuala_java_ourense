@@ -29,13 +29,19 @@ public class DaoCocheMap implements IDaoCoche{
     }
     @Override
     public void crear(String marca) throws Exception {
-        mapaStr.put(marca, FabricaCoches.crear(marca));
-        mapaInt.put(ultimoIndex, mapaStr.get(marca));
+        crear(FabricaCoches.crear(marca));
+    }
+    @Override
+    public void crear(Coche coche) throws Exception {
+        mapaStr.put(coche.getMarca(), coche);
+        mapaInt.put(ultimoIndex, mapaStr.get(coche.getMarca()));
         ultimoIndex++;
     }
+    @Override
     public Coche obtenerPorIndice(int index) {
         return mapaInt.get(index);
     }
+    @Override
     public Coche obtenerPorMarca(String marca) {
         return mapaStr.get(marca);
     }

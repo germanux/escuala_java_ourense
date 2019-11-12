@@ -24,6 +24,10 @@ public class DaoCocheList implements IDaoCoche{
     @Override
     public void crear(String marca) throws Exception {
         listaCoches.add(FabricaCoches.crear(marca));
+    }    
+    @Override
+    public void crear(Coche objetoNuevo) throws Exception {
+        listaCoches.add(objetoNuevo);
     }
     @Override
     public Coche obtenerPorIndice(int index) {
@@ -38,4 +42,5 @@ public class DaoCocheList implements IDaoCoche{
         }
         return null;
     }
+
 }
