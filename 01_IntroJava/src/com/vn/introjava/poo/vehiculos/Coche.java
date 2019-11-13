@@ -31,6 +31,19 @@ public class Coche  extends Vehiculo {
         this.arrancado = false;
         tipo = TipoVehiculo.TURISMO;
     }
+
+    @Override
+    public boolean equals(Object otroCoche) {
+        if (otroCoche instanceof Coche) {
+            Coche c = (Coche) otroCoche;
+            if (this.getMarca().equals(c.getMarca())
+                    /* && this.isArrancado() == c.isArrancado()*/ ) {
+                return true;
+            } 
+        }
+        return false;
+    }
+    
     
     public boolean arrancar() {
         System.out.println(this.marca + " ha arrancado.");

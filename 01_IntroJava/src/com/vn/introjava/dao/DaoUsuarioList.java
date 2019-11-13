@@ -20,11 +20,12 @@ public class DaoUsuarioList implements IDaoUsuario {
         listaUsuarios = new ArrayList<>();
     }
     @Override
-    public void crear(Usuario nuevoUsuario) throws Exception {
+    public Usuario crear(Usuario nuevoUsuario) throws Exception {
         listaUsuarios.add(nuevoUsuario);
+        return nuevoUsuario;
     }
-    public void crear(String nom, int edad) throws Exception {
-        listaUsuarios.add(new Usuario(nom, edad));
+    public Usuario crear(String nom, int edad) throws Exception {
+        return crear(new Usuario(nom, edad));
     }
     @Override
     public Usuario obtenerPorIndice(int index) {
@@ -41,11 +42,23 @@ public class DaoUsuarioList implements IDaoUsuario {
     }
 
     @Override
-    public void modificar(int index, Usuario usuarioConDatos) throws Exception {
+    public Usuario modificar(int index, Usuario usuarioConDatos) throws Exception {
         
         Usuario usuarioAmodificar = listaUsuarios.get(index);
         usuarioAmodificar.setEdad(usuarioConDatos.getEdad());
         usuarioAmodificar.setNombre(usuarioConDatos.getNombre());
         // listaUsuarios.set(index, usuarioConDatos);
+        return usuarioAmodificar;
+    }
+
+    @Override
+    public void eliminar(int index) {
+         this.listaUsuarios.remove(index);
+        // eliminar(obtenerPorIndice(index)); // OK también, en este caso es más lento
+    }
+
+    @Override
+    public void eliminar(Usuario objConDatosNuevo) {
+        this.listaUsuarios.remove(objConDatosNuevo);
     }
 }

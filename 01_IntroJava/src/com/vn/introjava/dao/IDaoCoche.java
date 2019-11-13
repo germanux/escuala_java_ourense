@@ -14,7 +14,7 @@ import com.vn.introjava.poo.vehiculos.FabricaCoches;
  */
 public interface IDaoCoche extends IGenericDao<Coche> {
     
-    public void crear(String marca) throws Exception; 
+    public Coche crear(String marca) throws Exception; 
     
     public Coche obtenerPorMarca(String marca);
     
