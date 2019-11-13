@@ -20,7 +20,8 @@ public class Main {
         System.out.println( (float) Long.MAX_VALUE);
         System.out.println( (double) Long.MAX_VALUE);
         
-        HilosSencillos hs = new HilosSencillos();
+        // HilosSencillos hs = new HilosSencillos();
+        PoolDeHilos hs = new PoolDeHilos(3);
         
         long timeIni = System.currentTimeMillis();
         hs.ejecturarHilosRunABenSerie();
