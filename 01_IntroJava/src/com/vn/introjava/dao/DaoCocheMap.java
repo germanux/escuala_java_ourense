@@ -50,11 +50,16 @@ public class DaoCocheMap implements IDaoCoche{
 
     @Override
     public Coche modificar(int index, Coche objConDatosNuevo) throws Exception {
+        
         Coche c = obtenerPorIndice(index);
+        
+        mapaStr.remove(c.getMarca());
+        mapaStr.put(objConDatosNuevo.getMarca(), c);
+        
         c.setMarca(objConDatosNuevo.getMarca());
         c.setTipo(objConDatosNuevo.getTipo());
         c.arrancar(objConDatosNuevo.isArrancado() 
-            ? 4 : 1);    
+            ? 4 : 1);  
         return c;
     }
 
