@@ -21,8 +21,8 @@ public class HilosSencillos {
     public HilosSencillos() {
         this.hiloA1 = new HiloA();
         this.hiloA2 = new HiloA();
-        this.hiloB1 = new HiloB();
-        this.hiloB2 = new HiloB();
+        this.hiloB1 = new HiloB(8000000);
+        this.hiloB2 = new HiloB(8000000);
     }    
     public static class HiloA implements Runnable {
 
@@ -37,12 +37,15 @@ public class HilosSencillos {
             }
         }        
     }
-    public static class HiloB implements Runnable {
-
+    public static class HiloB implements Runnable, Comparable<HiloB> {
+        long numIteraciones;
+        public HiloB(int numIt) {
+            numIteraciones = numIt;
+        }
         @Override
         public void run() {
             // El contador principal, j, en variable local
-            for (long j = 0; j < 80000000; j++) {   
+            for (long j = 0; j < numIteraciones; j++) {   
                 contCompartido++;
                 if ( j % 100000 == 0) {
                     System.out.println("->Ins B:" + j 
@@ -50,6 +53,21 @@ public class HilosSencillos {
                 }
             }
         }        
+
+        @Override
+        public int compareTo(HiloB o) {
+            
+//            if (this.numIteraciones > o.numIteraciones) {
+//                return 1;
+//            } else if (this.numIteraciones < o.numIteraciones) {
+//                return -1;
+//            } else {
+//                return 0;
+//            }
+            return numIteraciones > o.numIteraciones ? 1 :
+                   numIteraciones < o.numIteraciones ? -1 : 0;
+            
+        }
     }
     
     public void ejecutarHilosStartABenParalelo() {

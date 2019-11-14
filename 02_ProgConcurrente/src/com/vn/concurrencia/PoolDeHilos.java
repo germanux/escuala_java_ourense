@@ -25,7 +25,7 @@ public class PoolDeHilos {
         setHilosAB = new HashSet<>();   // NO mantiene el orden inserción
         for (int i = 0; i < numHilos; i++) {
             setHilosAB.add(new HilosSencillos.HiloA());
-            setHilosAB.add(new HilosSencillos.HiloB());
+            setHilosAB.add(new HilosSencillos.HiloB(8000000));
         }
     }
 
@@ -40,9 +40,9 @@ public class PoolDeHilos {
     }
 
     public void ejecutarHilosStartABenParalelo() {
-        System.out.println("\n**** THREAD - START ****\n");
+        System.out.println("\n**** " + numHilos + " hilos - PARALELO ****\n");
         
-        SortedSet<Thread> setThreads = new TreeSet<>();  // Mantiene el orden inserción
+        HashSet<Thread> setThreads = new HashSet<>();  // Mantiene el orden inserción
 
         // Forma fácil de recorrer una colección
         for (Runnable hiloAB : setHilosAB) {
@@ -54,22 +54,23 @@ public class PoolDeHilos {
             // Necesitamos dos bucles?
             threadHiloAB.start();
         });
-        int cuantosEstanVivos = 0;  // Con un booleano tambien sirve
+        boolean hayUnoVivo = false;  // Con un booleano tambien sirve
         do {
-            cuantosEstanVivos = 0;
+            hayUnoVivo = false;
 
             // En realidad, ambas maneras encubren esta manera, un objeto que 
             // nos ayuda con la iteracion. Implementacion tipica del 
             // PATRON ITERATOR
             // Perdon por la falta de acentos, no me va el teclado espanhol
-            for (Iterator<Thread> it = setThreads.iterator(); it.hasNext();) {
+            Iterator<Thread> it = setThreads.iterator();
+            while ( it.hasNext()) {
                 Thread threadHiloAB = it.next();
-                if (threadHiloAB.isAlive()) {  // Para quitar este IF?
-                    cuantosEstanVivos++;
-                }
+                hayUnoVivo = hayUnoVivo || threadHiloAB.isAlive();
+/*                if (threadHiloAB.isAlive()) {  // Para quitar este IF?
+                    hayUnoVivo = true;
+                }*/
             };
-
-        } while (cuantosEstanVivos > 0);
+        } while (hayUnoVivo);
 
         System.out.println("\n**** end - START ****\n");
     }

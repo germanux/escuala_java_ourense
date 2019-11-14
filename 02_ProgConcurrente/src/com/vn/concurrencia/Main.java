@@ -21,7 +21,7 @@ public class Main {
         System.out.println( (double) Long.MAX_VALUE);
         
         // HilosSencillos hs = new HilosSencillos();
-        PoolDeHilos hs = new PoolDeHilos(3);
+        PoolDeHilos hs = new PoolDeHilos(1);
         
         long timeIni = System.currentTimeMillis();
         hs.ejecturarHilosRunABenSerie();
