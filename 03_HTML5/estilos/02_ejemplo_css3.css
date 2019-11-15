@@ -1,0 +1,69 @@
+
+
+/* selector de etiqueta */
+body {
+    background-color: #DDEEFF;    /* RGB */
+    font-size: 1.2em;   /* Propiedad que se hereda de padres a hijos */
+}
+header {
+    background-color: rgb(182, 202, 221); */
+}
+/* selector varios */
+h1, h2, h3 {
+    background-color: rgb(168, 200, 233);
+}
+/* section descendiente de article */
+article section {
+    background-color: red;
+    width: 80%;   /* 25 % */
+}
+/* section descendiente de article */
+article > section {
+    margin: 20px;
+    background-color: red;       
+    width: 100px;
+}
+/* clase azul chillón */
+.azul-chillon {
+    height: 50px;   /* 50 pixeles */
+    background-color: blue;     
+}
+/* Selector */
+#enlace-menu, #enlace-css {
+    color: red;
+}
+a:hover {  
+    background-color: yellow;
+}
+.elemento-menu {
+    display: inline;  /* display: forma de mostrar, none para NO mostrar */            
+}
+.titulo {   /* Posición relativa a donde debería estar */
+    position: relative;
+    left: 5px;
+    top: 5px;
+    display: inline-block;
+}
+.marco-colocado {
+    display: inline-block;
+    width: 400px;
+}
+
+/* Media queries, condiciones para seleccionar qué 
+    etilos se aplican a qué dispositivos */
+.articulo {border: black solid;}
+/* On screens that are 992px or less, set the background color to blue */
+@media screen and (max-width: 992px) {
+    article section {
+        width: 40%;
+        display: inline-block;
+        border: burlywood solid;
+    }
+}
+@media screen and (min-width: 991px) {
+    article section {
+        width: 80%;
+        display: inline-block;
+        border: blue solid;
+    }
+}
