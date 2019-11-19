@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="componente_eventos">
+        <label>Evento con listener: </label>
+        <input id="input_listo" size=100/>
+        <input id="btn_listo" type="button" />
+        <div id="info_evento_listo"></div>
+    </div>
+    <br />
+    <label>Otros Eventos con listener: </label>
+    <input id="input_otro" size=100/>
+    <div id="info_evento_otro"></div>
+    <input id="boton_otro" type="button" />
+    <br />
+    <script>
+        var gestorEv_Listo = new GestorEventos(inputId, btnId, divId);
+        var gestorEv_Otro = new GestorEventos(inputId, btnId, divId);
+
+        let input_listo = document.getElementById("input_listo");
+        let btn_listo = document.getElementById("btn_listo");
+        btn_otro.nombreInput = "input_listo";
+        btn_listo.value = "Pulsa, listillo/a";
+        btn_listo.addEventListener("click", funCallbkAlApulsar);
+        btn_listo.addEventListener("click", funCallbkAlApulsar_Dos);
+        
+        let input_otro = document.getElementById("input_otro");
+        let btn_otro = document.getElementById("btn_otro");
+        btn_otro.value = "Pulsa es otro botón";
+        btn_otro.nombreInput = "input_otro";
+        btn_otro.addEventListener("click", funCallbkAlApulsar);
+        btn_otro.addEventListener("click", funCallbkAlApulsar_Dos);
+        
+        /**
+         * Para que funcione necesita nonmbreInput en el botón */
+        function funCallbkAlApulsar(evento) {
+            let partePropiaId = evento.currentTarget.id.substr(4);
+            
+            let input = document.getElementById(evento.currentTarget.nombreInput);
+            let info_evento = document.getElementById("info_evento_" + partePropiaId);
+            input.value = "Typo evento: " + evento.type;
+            evento.currentTarget.value = "Puedes repetir";
+            info_evento.innerHTML += "evento.currentTarget.id = " + evento.currentTarget.id;
+            info_evento.className = "div-marco";
+            evento.currentTarget.removeEventListener("click", funCallbkAlApulsar);
+        }
+        function funCallbkAlApulsar_Dos(evento) {
+            document.getElementsByTagName("body")[0].className = "fondo-body";
+        }
+    </script>
+    <style>
+        .div-marco {
+            border: blue solid;
+            background-color: lightgrey
+        }
+        .fondo-body {
+            background-color: lightgreen;
+        }
+    </style>
+</body>
+
+</html>

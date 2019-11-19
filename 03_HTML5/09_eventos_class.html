@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+        <!-- Mejor los controles en un DIV -->
+        <div id="componente_eventos">
+            <label>Evento con listener: </label>
+            <input id="input_listo" size=100/>
+            <input id="btn_listo" type="button" value="Pulsame" />
+            <div id="info_evento_listo"></div>
+        </div>
+        <br />
+        <!-- Por separado también debe funcionar -->
+        <label>Otros Eventos con listener: </label>
+        <input id="input_otro" size=100/>
+        <div id="info_evento_otro"></div>
+        <input id="boton_otro" type="button" value="Pulsa este otro" />
+        <br />
+        <div onclick="alert('Llamada evento desde HTML');"> 
+            Zona onclick="alert();"
+        </div>        
+        <div id="quiereUnOnclick"> 
+                Zona elemDOM.onclick=function(..) { ... }
+        </div>
+        <script src="js/09_eventos_class.js"></script>
+        <script>
+            window.addEventListener("load", function() {
+                let quiereUnOnclick = document.getElementById("quiereUnOnclick");
+                
+                quiereUnOnclick.onclick = function (evento) {
+                    alert("'Llamada evento desde JS, propiedad .onclick '");
+                }
+
+                let gestorEvListo = new GestorEventosES5(   "input_listo", 
+                                                            "btn_listo",
+                                                            "info_evento_listo");
+
+                let gestorEvOtro = new GestorEventosES5(    "input_otro", 
+                                                            "boton_otro",
+                                                            "info_evento_otro");
+            });
+        </script>
+</body>
+</html>
