@@ -116,9 +116,7 @@ public class ParamServlet extends HttpServlet {
                 Logger.getLogger(ParamServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
             out.println("</body>");
-            out.println("</html>");       
-            
-            
+            out.println("</html>"); 
         }
     }
     

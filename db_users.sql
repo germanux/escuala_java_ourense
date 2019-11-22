@@ -10,6 +10,8 @@ CREATE TABLE usuario (
 )
 DAO Usuarios implements IGenericDao<T>: Recibe y envía objetos
 
+DAOUsuariosDerby
+
 C -> Crear nuevo (Insert)	
 R -> Leer uno por Id, Leer todos, (Leer por email) (SELECT)
 U -> Actualizar por Id	(o email)
@@ -26,6 +28,8 @@ ServicioUsuarios  (puede o no implementar IGenericDao<T>):
  + List<Usuario> leerPorNombre(String nombre)  (si nombre es vacío, devuelve todos)
  + List<Usuario> leerTodos()
 
-
-
+TESTS Modelo Usuario:
+@Test +crearUsuariosInvalidos() { /* Crear 5 usuarios no válidos y comprobar que no se han insertado */   }
+@Test +crearUsuariosValidos() {	/* Crear 5 usuarios válidos y comprobar que existen y eliminarlos */ } 
+- Otros 2 tests para modificar y eliminar
 
