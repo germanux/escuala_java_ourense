@@ -106,7 +106,6 @@ public class ParamServlet extends HttpServlet {
                     "jdbc:derby://localhost:1527/db_prueba",
                     "root",
                     "1234" )) {
-                
                 String sqlQuery = "INSERT INTO persona (nombre, email) VALUES ( '" + nombre + "', '" + email + "')";
                 Statement sentenciaSQL = con.createStatement();
                 sentenciaSQL.executeUpdate(sqlQuery);
