@@ -11,13 +11,13 @@ package com.appusuarios.modelo;
  */
 public interface IGenericDao<T> {
     
-    public abstract T crear(T  objetoNuevo) throws Exception;
+    public abstract T crear(T  objetoNuevo);
     
-    T obtenerPorIndice(int index);
+    T obtenerPorId(int id);
     
-    T modificar(int index, T objConDatosNuevo) throws Exception;
+    T obtenerTodos();
     
-    void eliminar(int index);
+    T modificar(T objConDatosNuevo);
     
-    void eliminar(T objConDatosNuevo);
+    boolean eliminar(int id);
 }

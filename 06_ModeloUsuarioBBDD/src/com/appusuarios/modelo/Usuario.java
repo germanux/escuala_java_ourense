@@ -11,14 +11,21 @@ package com.appusuarios.modelo;
  */
 public class Usuario {
     
+    private int id;
+    private String email;
+    private String password;
     private String nombre;
-
     private int edad;
 
-    public Usuario(String nombre, int edad) {
+    public Usuario(int id, String email, String password, String nombre, int edad) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
         this.nombre = nombre;
         this.edad = edad;
     }
+
+
 
     /**
      * Get the value of edad
@@ -54,6 +61,30 @@ public class Usuario {
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 }
