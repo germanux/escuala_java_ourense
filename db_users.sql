@@ -24,6 +24,7 @@ ServicioUsuarios  (puede o no implementar IGenericDao<T>):
 	* Email que realmente sea un email y Nombre también (usar reg exp).
 	* Password mínimo 4 caracteres
  + Usuario crear(String email, String password, String nombre, String edad){}
+	Debe devolver el USUARIO COMPLETO, incluido el ID generado en bbdd.
  + Usuario modificar(int Id, String email, String password, String nombre, String edad){ }	
  + Usuario modificar(Usuario usuDatosNuevos) {   /*Invocar al anterior*/}
  + boolean eliminar(int id)

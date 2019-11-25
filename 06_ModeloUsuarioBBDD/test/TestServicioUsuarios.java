@@ -40,19 +40,53 @@ public class TestServicioUsuarios {
     }
     @Test
     public void crearUsuariosValidos() {
-        srvUsu.crear("a@a.a", "1234", "Nom 1", "20");
-        srvUsu.crear("a@a.a2", "1234", "Nom 2", "30");
+        Usuario u1 = srvUsu.crear("a@a.a", "1234", "Nom 1", "20");
+        Usuario u2 = srvUsu.crear("a@a.a2", "1234", "Nom 2", "30");
+        Usuario u3 = srvUsu.crear("a@ee.a2", "e1234", "Nom 3", "40");
         
         assertTrue(srvUsu.leerUno("a@a.a").getId() > 0);
         assertEquals("Nom 2", srvUsu.leerUno("a@a.a2").getNombre());
+        assertEquals("Nom 3", srvUsu.leerUno("a@ee.a2").getNombre());
+        
+        srvUsu.eliminar(u1.getId());
+        srvUsu.eliminar(u2.getId());
+        srvUsu.eliminar(u3.getId());
     }
     @Test
-    public void modificarUsuariosInvalidos() {
+    public void modificacionesInvalidasDeUsuarios() {
     }
     @Test
     public void modificarUsuariosValidos() {
+        Usuario u1 = srvUsu.crear("a@a.a", "1234", "Nom 1", "20");
+        Usuario u2 = srvUsu.crear("a@a.a2", "1234", "Nom 2", "30");
+        Usuario u3 = srvUsu.crear("a@ee.a2", "e1234", "Nom 3", "40");
+        
+        srvUsu.modificar(u1.getId(), u1.getEmail(), u1.getPassword(), u1.getNombre(), "25");
+        assertEquals(25, srvUsu.leerUno("a@a.a").getEdad());
+        srvUsu.modificar(u2.getId(), "psd@dd.ee", u2.getPassword(), u2.getNombre(), "30");
+        assertEquals(u2.getId(), srvUsu.leerUno("psd@dd.ee").getId());
+        
+        srvUsu.modificar(u3.getId(), "a@ee.a2", "666uu", "Otro nombre", "40");
+        assertEquals("666uu", srvUsu.leerUno(u3.getId()).getPassword());
+        assertEquals("Otro nombre", srvUsu.leerUno("a@ee.a2").getNombre());
+        
+        srvUsu.eliminar(u1.getId());
+        srvUsu.eliminar(u2.getId());
+        srvUsu.eliminar(u3.getId());
     }
     @Test
     public void eliminarUsuarios() {
+        Usuario u1 = srvUsu.crear("a@a.a", "1234", "Nom 1", "20");
+        Usuario u2 = srvUsu.crear("a@a.a2", "1234", "Nom 2", "30");
+        Usuario u3 = srvUsu.crear("a@ee.a2", "e1234", "Nom 3", "40");
+        
+        boolean b1 = srvUsu.eliminar(u1.getId());        
+        boolean b2 = srvUsu.eliminar(u2.getId());        
+        boolean b3 = srvUsu.eliminar(u3.getId());
+        
+        assertNull(srvUsu.leerUno("a@a.a"));
+        assertNull(srvUsu.leerUno(u2.getId()));
+        assertNull(srvUsu.leerUno("a@ee.a2"));
+        assertTrue(b1 && b2 && b3); //, "Alguno eliminarUsuarios ha fallado");
     }
 }

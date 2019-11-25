@@ -53,7 +53,7 @@ public class ServicioUsuarios {
     public Usuario crear(String email, String password, String nombre, String edad) {
         Usuario nuevoUsu = crearUsuarioValido(email, password, nombre, edad);
         if (nuevoUsu != null) {
-            daoUsu.crear(nuevoUsu);
+            nuevoUsu = daoUsu.crear(nuevoUsu);
             return nuevoUsu;
         }
         return null;
@@ -63,5 +63,18 @@ public class ServicioUsuarios {
     }
     public Usuario leerUno(String email) {
         return daoUsu.obtenerPorEmail(email);
+    }
+    public Usuario modificar(int id, String email, String password, String nombre, String edad) {
+        
+        Usuario usuModif = crearUsuarioValido(email, password, nombre, edad);
+        if (usuModif != null) {
+            usuModif.setId(id);
+            daoUsu.modificar(usuModif);
+            return usuModif;
+        }
+        return null;
+    }
+    public boolean eliminar(int id) {
+        return daoUsu.eliminar(id);
     }
 }

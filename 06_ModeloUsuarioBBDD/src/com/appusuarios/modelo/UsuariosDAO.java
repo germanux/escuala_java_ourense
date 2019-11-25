@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,7 +25,6 @@ public class UsuariosDAO implements IGenericDao<Usuario> {
         Connection conex = ConexionDerbyDB.obtenerConexion();
 
         try {
-
             String sqlQuery = "INSERT INTO usuario (email, password, nombre, edad) VALUES (?, ?, ?, ?)";
             PreparedStatement sentenciaSQL = conex.prepareStatement(sqlQuery);
             sentenciaSQL.setString(1, nuevoUsu.getEmail());
@@ -32,11 +32,13 @@ public class UsuariosDAO implements IGenericDao<Usuario> {
             sentenciaSQL.setString(3, nuevoUsu.getNombre());
             sentenciaSQL.setInt(4, nuevoUsu.getEdad());
             sentenciaSQL.executeUpdate();
-            
+
             conex.close();
+            nuevoUsu = obtenerPorEmail(nuevoUsu.getEmail());
+            return nuevoUsu;
         } catch (SQLException ex) {
             Logger.getLogger(UsuariosDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {            
+        } finally {
             try {
                 conex.close();
             } catch (SQLException ex) {
@@ -48,21 +50,39 @@ public class UsuariosDAO implements IGenericDao<Usuario> {
 
     @Override
     public Usuario obtenerPorId(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try (Connection conex = ConexionDerbyDB.obtenerConexion()) {
+            String sqlQuery = "SELECT id, email, password, nombre, edad  FROM usuario WHERE id = ? ";
+            // Sentencia preparada para evitar SQL injection
+            PreparedStatement sentenciaSQL = conex.prepareStatement(sqlQuery);
+            sentenciaSQL.setInt(1, id);
+            ResultSet resultado = sentenciaSQL.executeQuery();
+            if (resultado.next()) {
+                Usuario usu = new Usuario(
+                        resultado.getInt(1),
+                        resultado.getString(2),
+                        resultado.getString(3),
+                        resultado.getString(4),
+                        resultado.getInt(5));
+                return usu;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuariosDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     public Usuario obtenerPorEmail(String email) {
-        
+
         try (Connection conex = ConexionDerbyDB.obtenerConexion()) {
             String sqlQuery = "SELECT id, email, password, nombre, edad  FROM usuario WHERE email = ? ";
             // Sentencia preparada para evitar SQL injection
-            PreparedStatement sentenciaSQL = conex.prepareStatement(sqlQuery);  
+            PreparedStatement sentenciaSQL = conex.prepareStatement(sqlQuery);
             sentenciaSQL.setString(1, email);
             ResultSet resultado = sentenciaSQL.executeQuery();
             if (resultado.next()) {
                 Usuario usu = new Usuario(
-                        resultado.getInt(1), 
-                        resultado.getString(2), 
+                        resultado.getInt(1),
+                        resultado.getString(2),
                         resultado.getString(3),
                         resultado.getString(4),
                         resultado.getInt(5));
@@ -75,18 +95,61 @@ public class UsuariosDAO implements IGenericDao<Usuario> {
     }
 
     @Override
-    public Usuario obtenerTodos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<Usuario> obtenerTodos() {
+        try (Connection conex = ConexionDerbyDB.obtenerConexion()) {
+            String sqlQuery = "SELECT id, email, password, nombre, edad  FROM usuario ";
+            // Sentencia preparada para evitar SQL injection
+            PreparedStatement sentenciaSQL = conex.prepareStatement(sqlQuery);
+            ResultSet resultado = sentenciaSQL.executeQuery();
+            ArrayList<Usuario> lista = new ArrayList<Usuario>();
+            while (resultado.next()) {
+                Usuario usu = new Usuario(
+                        resultado.getInt(1),
+                        resultado.getString(2),
+                        resultado.getString(3),
+                        resultado.getString(4),
+                        resultado.getInt(5));
+                lista.add(usu);
+            }
+            return lista;
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuariosDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     @Override
-    public Usuario modificar(Usuario objConDatosNuevo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Usuario modificar(Usuario usuModif) {
+
+        try (Connection conex = ConexionDerbyDB.obtenerConexion()) {
+            String sqlQuery = "UPDATE usuario SET email=?, password=?, nombre=?, edad=? WHERE id=?";
+            PreparedStatement sentenciaSQL = conex.prepareStatement(sqlQuery);
+            sentenciaSQL.setString(1, usuModif.getEmail());
+            sentenciaSQL.setString(2, usuModif.getPassword());
+            sentenciaSQL.setString(3, usuModif.getNombre());
+            sentenciaSQL.setInt(4, usuModif.getEdad());
+            sentenciaSQL.setInt(5, usuModif.getId());
+            sentenciaSQL.executeUpdate();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuariosDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+
     }
 
     @Override
     public boolean eliminar(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try (Connection conex = ConexionDerbyDB.obtenerConexion()) {
+            String sqlQuery = "DELETE FROM usuario WHERE id=?";
+            PreparedStatement sentenciaSQL = conex.prepareStatement(sqlQuery);
+            sentenciaSQL.setInt(1, id);
+            sentenciaSQL.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuariosDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 //TODO: implements IGenericDao<Usuario> 
 

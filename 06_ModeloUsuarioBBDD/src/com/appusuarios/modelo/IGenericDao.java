@@ -5,6 +5,8 @@
  */
 package com.appusuarios.modelo;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author pc
@@ -15,7 +17,7 @@ public interface IGenericDao<T> {
     
     T obtenerPorId(int id);
     
-    T obtenerTodos();
+    ArrayList<T> obtenerTodos();
     
     T modificar(T objConDatosNuevo);
     
