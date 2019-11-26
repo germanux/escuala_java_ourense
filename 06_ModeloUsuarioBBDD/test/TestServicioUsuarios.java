@@ -6,6 +6,7 @@
 
 import com.appusuarios.modelo.ServicioUsuarios;
 import com.appusuarios.modelo.Usuario;
+import java.util.ArrayList;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -40,13 +41,13 @@ public class TestServicioUsuarios {
     }
     @Test
     public void crearUsuariosValidos() {
-        Usuario u1 = srvUsu.crear("a@a.a", "1234", "Nom 1", "20");
-        Usuario u2 = srvUsu.crear("a@a.a2", "1234", "Nom 2", "30");
-        Usuario u3 = srvUsu.crear("a@ee.a2", "e1234", "Nom 3", "40");
+        Usuario u1 = srvUsu.crear("a@a.a", "1234", "Nom A", "20");
+        Usuario u2 = srvUsu.crear("a@a.a2", "1234", "Nom B", "30");
+        Usuario u3 = srvUsu.crear("a@ee.a2", "e1234", "Nom C", "40");
         
         assertTrue(srvUsu.leerUno("a@a.a").getId() > 0);
-        assertEquals("Nom 2", srvUsu.leerUno("a@a.a2").getNombre());
-        assertEquals("Nom 3", srvUsu.leerUno("a@ee.a2").getNombre());
+        assertEquals("Nom B", srvUsu.leerUno("a@a.a2").getNombre());
+        assertEquals("Nom C", srvUsu.leerUno("a@ee.a2").getNombre());
         
         srvUsu.eliminar(u1.getId());
         srvUsu.eliminar(u2.getId());
@@ -54,12 +55,22 @@ public class TestServicioUsuarios {
     }
     @Test
     public void modificacionesInvalidasDeUsuarios() {
-    }
+        Usuario u1 = srvUsu.crear("a@a.aaa", "1234", "Nom A", "20");
+        Usuario u2 = srvUsu.crear("a@a.a2", "1234", "Nom B", "30");
+        
+        srvUsu.modificar(u1.getId(), "@dfdf", u1.getPassword(), u1.getNombre(), "25");
+        assertEquals(20, srvUsu.leerUno("a@a.aaa").getEdad());
+        
+        srvUsu.modificar(u2.getId(), "psdee.dd", u2.getPassword(), u2.getNombre(), "30");
+        assertEquals("a@a.a2", srvUsu.leerUno(u2.getId()).getEmail());
+        srvUsu.eliminar(u1.getId());
+        srvUsu.eliminar(u2.getId());
+   }
     @Test
     public void modificarUsuariosValidos() {
-        Usuario u1 = srvUsu.crear("a@a.a", "1234", "Nom 1", "20");
-        Usuario u2 = srvUsu.crear("a@a.a2", "1234", "Nom 2", "30");
-        Usuario u3 = srvUsu.crear("a@ee.a2", "e1234", "Nom 3", "40");
+        Usuario u1 = srvUsu.crear("a@a.a", "1234", "Nom A", "20");
+        Usuario u2 = srvUsu.crear("a@a.a2", "1234", "Nom B", "30");
+        Usuario u3 = srvUsu.crear("a@ee.a2", "e1234", "Nom C", "40");
         
         srvUsu.modificar(u1.getId(), u1.getEmail(), u1.getPassword(), u1.getNombre(), "25");
         assertEquals(25, srvUsu.leerUno("a@a.a").getEdad());
@@ -76,9 +87,9 @@ public class TestServicioUsuarios {
     }
     @Test
     public void eliminarUsuarios() {
-        Usuario u1 = srvUsu.crear("a@a.a", "1234", "Nom 1", "20");
-        Usuario u2 = srvUsu.crear("a@a.a2", "1234", "Nom 2", "30");
-        Usuario u3 = srvUsu.crear("a@ee.a2", "e1234", "Nom 3", "40");
+        Usuario u1 = srvUsu.crear("a@a.a", "1234", "Nom A", "20");
+        Usuario u2 = srvUsu.crear("a@a.a2", "1234", "Nom B", "30");
+        Usuario u3 = srvUsu.crear("a@ee.a2", "e1234", "Nom C", "40");
         
         boolean b1 = srvUsu.eliminar(u1.getId());        
         boolean b2 = srvUsu.eliminar(u2.getId());        
@@ -88,5 +99,20 @@ public class TestServicioUsuarios {
         assertNull(srvUsu.leerUno(u2.getId()));
         assertNull(srvUsu.leerUno("a@ee.a2"));
         assertTrue(b1 && b2 && b3); //, "Alguno eliminarUsuarios ha fallado");
+    }
+    
+    @Test 
+    public void listarTodos() {
+        ArrayList<Usuario> lista = srvUsu.leerTodos();
+        
+        lista.add(srvUsu.crear("a@a.a", "1234", "Nom A", "20"));
+        lista.add(srvUsu.crear("a@a.a2", "1234", "Nom B", "30"));
+        lista.add(srvUsu.crear("a@ee.a2", "e1234", "Nom C", "40"));
+        
+        for (Usuario usuario : lista) {
+            assertEquals(usuario.getNombre(), 
+                    srvUsu.leerUno(usuario.getId()).getNombre());
+            srvUsu.eliminar(usuario.getId());
+        }
     }
 }
