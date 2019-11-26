@@ -20,11 +20,10 @@ import java.util.logging.Logger;
  */
 public class UsuariosDAO implements IGenericDao<Usuario> {
 
+    
     @Override
-    public Usuario crear(Usuario nuevoUsu) {
-        Connection conex = ConexionDerbyDB.obtenerConexion();
-
-        try {
+    public Usuario crear(Usuario nuevoUsu) throws Exception {
+        try (Connection conex = ConexionDerbyDB.obtenerConexion()) { 
             String sqlQuery = "INSERT INTO usuario (email, password, nombre, edad) VALUES (?, ?, ?, ?)";
             PreparedStatement sentenciaSQL = conex.prepareStatement(sqlQuery);
             sentenciaSQL.setString(1, nuevoUsu.getEmail());
@@ -33,23 +32,13 @@ public class UsuariosDAO implements IGenericDao<Usuario> {
             sentenciaSQL.setInt(4, nuevoUsu.getEdad());
             sentenciaSQL.executeUpdate();
 
-            conex.close();
             nuevoUsu = obtenerPorEmail(nuevoUsu.getEmail());
             return nuevoUsu;
-        } catch (SQLException ex) {
-            Logger.getLogger(UsuariosDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                conex.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(UsuariosDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
-        return null;
     }
 
     @Override
-    public Usuario obtenerPorId(int id) {
+    public Usuario obtenerPorId(int id) throws Exception {
         try (Connection conex = ConexionDerbyDB.obtenerConexion()) {
             String sqlQuery = "SELECT id, email, password, nombre, edad  FROM usuario WHERE id = ? ";
             // Sentencia preparada para evitar SQL injection
@@ -65,13 +54,11 @@ public class UsuariosDAO implements IGenericDao<Usuario> {
                         resultado.getInt(5));
                 return usu;
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(UsuariosDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
-    public Usuario obtenerPorEmail(String email) {
+    public Usuario obtenerPorEmail(String email) throws Exception {
 
         try (Connection conex = ConexionDerbyDB.obtenerConexion()) {
             String sqlQuery = "SELECT id, email, password, nombre, edad  FROM usuario WHERE email = ? ";
@@ -88,14 +75,12 @@ public class UsuariosDAO implements IGenericDao<Usuario> {
                         resultado.getInt(5));
                 return usu;
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(UsuariosDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } 
         return null;
     }
 
     @Override
-    public ArrayList<Usuario> obtenerTodos() {
+    public ArrayList<Usuario> obtenerTodos() throws Exception {
         try (Connection conex = ConexionDerbyDB.obtenerConexion()) {
             String sqlQuery = "SELECT id, email, password, nombre, edad  FROM usuario ";
             // Sentencia preparada para evitar SQL injection
@@ -112,14 +97,11 @@ public class UsuariosDAO implements IGenericDao<Usuario> {
                 lista.add(usu);
             }
             return lista;
-        } catch (SQLException ex) {
-            Logger.getLogger(UsuariosDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
     }
 
     @Override
-    public Usuario modificar(Usuario usuModif) {
+    public Usuario modificar(Usuario usuModif) throws Exception {
 
         try (Connection conex = ConexionDerbyDB.obtenerConexion()) {
             String sqlQuery = "UPDATE usuario SET email=?, password=?, nombre=?, edad=? WHERE id=?";
@@ -131,25 +113,19 @@ public class UsuariosDAO implements IGenericDao<Usuario> {
             sentenciaSQL.setInt(5, usuModif.getId());
             sentenciaSQL.executeUpdate();
 
-        } catch (SQLException ex) {
-            Logger.getLogger(UsuariosDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } 
         return null;
-
     }
 
     @Override
-    public boolean eliminar(int id) {
+    public boolean eliminar(int id) throws Exception {
         try (Connection conex = ConexionDerbyDB.obtenerConexion()) {
             String sqlQuery = "DELETE FROM usuario WHERE id=?";
             PreparedStatement sentenciaSQL = conex.prepareStatement(sqlQuery);
             sentenciaSQL.setInt(1, id);
             sentenciaSQL.executeUpdate();
             return true;
-        } catch (SQLException ex) {
-            Logger.getLogger(UsuariosDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return false;
     }
 //TODO: implements IGenericDao<Usuario> 
 

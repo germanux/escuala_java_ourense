@@ -13,13 +13,13 @@ import java.util.ArrayList;
  */
 public interface IGenericDao<T> {
     
-    public abstract T crear(T  objetoNuevo);
+    public abstract T crear(T  objetoNuevo)  throws Exception ;
     
-    T obtenerPorId(int id);
+    T obtenerPorId(int id)  throws Exception ;
     
-    ArrayList<T> obtenerTodos();
+    ArrayList<T> obtenerTodos()  throws Exception ;
     
-    T modificar(T objConDatosNuevo);
+    T modificar(T objConDatosNuevo) throws Exception ;
     
-    boolean eliminar(int id);
+    boolean eliminar(int id) throws Exception ;
 }

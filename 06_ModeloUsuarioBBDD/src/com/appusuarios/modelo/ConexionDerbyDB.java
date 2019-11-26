@@ -22,28 +22,18 @@ public class ConexionDerbyDB {
     public static final  String PASSWORD_DB = "1234";
     private static boolean driversCargados = false;
     
-    private  static void cargarDrivers() {
-        try {
-            Class.forName("org.apache.derby.jdbc.ClientDriver");
-            DriverManager.registerDriver(new org.apache.derby.jdbc.EmbeddedDriver());
-        } catch (Exception ex) {
-            Logger.getLogger(ConexionDerbyDB.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("No se ha cargado DerbyDB");
-        }
+    private  static void cargarDrivers() throws ClassNotFoundException, SQLException {
+        
+        Class.forName("org.apache.derby.jdbc.ClientDriver");
+        DriverManager.registerDriver(new org.apache.derby.jdbc.EmbeddedDriver());
     }
-    public static Connection obtenerConexion() {
+    public static Connection obtenerConexion() throws SQLException, ClassNotFoundException {
         if (! driversCargados) {
             cargarDrivers();
             driversCargados = true;
-        }
-        try {
-            return DriverManager.getConnection(
-                    URL_CONEXION,
-                    USUARIO_DB, PASSWORD_DB);
-        } catch (SQLException ex) {
-            Logger.getLogger(ConexionDerbyDB.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("No se ha podido conectar");
-        }
-        return null;
+        }        
+        return DriverManager.getConnection(
+                URL_CONEXION,
+                USUARIO_DB, PASSWORD_DB);
     }
 }
