@@ -24,7 +24,7 @@ public class UsuariosDAO implements IGenericDao<Usuario> {
     
     @Override
     public Usuario crear(Usuario nuevoUsu) throws Exception {
-        try (Connection conex = ConexionDerbyDB.obtenerConexion()) { 
+        try (Connection conex = ConexionMySqlDB.obtenerConexion()) { 
             String sqlQuery = "INSERT INTO usuario (email, password, nombre, edad) VALUES (?, ?, ?, ?)";
             PreparedStatement sentenciaSQL = conex.prepareStatement(sqlQuery);
             sentenciaSQL.setString(1, nuevoUsu.getEmail());
@@ -40,7 +40,7 @@ public class UsuariosDAO implements IGenericDao<Usuario> {
 
     @Override
     public Usuario obtenerPorId(int id) throws Exception {
-        try (Connection conex = ConexionDerbyDB.obtenerConexion()) {
+        try (Connection conex = ConexionMySqlDB.obtenerConexion()) {
             String sqlQuery = "SELECT id, email, password, nombre, edad  FROM usuario WHERE id = ? ";
             // Sentencia preparada para evitar SQL injection
             PreparedStatement sentenciaSQL = conex.prepareStatement(sqlQuery);
@@ -61,7 +61,7 @@ public class UsuariosDAO implements IGenericDao<Usuario> {
 
     public Usuario obtenerPorEmail(String email) throws Exception {
 
-        try (Connection conex = ConexionDerbyDB.obtenerConexion()) {
+        try (Connection conex = ConexionMySqlDB.obtenerConexion()) {
             String sqlQuery = "SELECT id, email, password, nombre, edad  FROM usuario WHERE email = ? ";
             // Sentencia preparada para evitar SQL injection
             PreparedStatement sentenciaSQL = conex.prepareStatement(sqlQuery);
@@ -82,7 +82,7 @@ public class UsuariosDAO implements IGenericDao<Usuario> {
 
     @Override
     public ArrayList<Usuario> obtenerTodos() throws Exception {
-        try (Connection conex = ConexionDerbyDB.obtenerConexion()) {
+        try (Connection conex = ConexionMySqlDB.obtenerConexion()) {
             String sqlQuery = "SELECT id, email, password, nombre, edad  FROM usuario ";
             // Sentencia preparada para evitar SQL injection
             PreparedStatement sentenciaSQL = conex.prepareStatement(sqlQuery);
@@ -104,7 +104,7 @@ public class UsuariosDAO implements IGenericDao<Usuario> {
     @Override
     public Usuario modificar(Usuario usuModif) throws Exception {
 
-        try (Connection conex = ConexionDerbyDB.obtenerConexion()) {
+        try (Connection conex = ConexionMySqlDB.obtenerConexion()) {
             String sqlQuery = "UPDATE usuario SET email=?, password=?, nombre=?, edad=? WHERE id=?";
             PreparedStatement sentenciaSQL = conex.prepareStatement(sqlQuery);
             sentenciaSQL.setString(1, usuModif.getEmail());
@@ -113,14 +113,13 @@ public class UsuariosDAO implements IGenericDao<Usuario> {
             sentenciaSQL.setInt(4, usuModif.getEdad());
             sentenciaSQL.setInt(5, usuModif.getId());
             sentenciaSQL.executeUpdate();
-
         } 
         return null;
     }
 
     @Override
     public boolean eliminar(int id) throws Exception {
-        try (Connection conex = ConexionDerbyDB.obtenerConexion()) {
+        try (Connection conex = ConexionMySqlDB.obtenerConexion()) {
             String sqlQuery = "DELETE FROM usuario WHERE id=?";
             PreparedStatement sentenciaSQL = conex.prepareStatement(sqlQuery);
             sentenciaSQL.setInt(1, id);

@@ -43,11 +43,11 @@ public class TestServicioUsuarios {
     }
     @Test
     public void crearUsuariosValidos() {
-        Usuario u1 = srvUsu.crear("a@a.a", "1234", "Nom A", "20");
+        Usuario u1 = srvUsu.crear("arrr@a.a", "1234", "Nom A", "20");
         Usuario u2 = srvUsu.crear("a@a.a2", "1234", "Nom B", "30");
         Usuario u3 = srvUsu.crear("a@ee.a2", "e1234", "Nom C", "40");
         
-        assertTrue(srvUsu.leerUno("a@a.a").getId() > 0);
+        assertTrue(srvUsu.leerUno("arrr@a.a").getId() > 0);
         assertEquals("Nom B", srvUsu.leerUno("a@a.a2").getNombre());
         assertEquals("Nom C", srvUsu.leerUno("a@ee.a2").getNombre());
         
@@ -70,12 +70,12 @@ public class TestServicioUsuarios {
    }
     @Test
     public void modificarUsuariosValidos() {
-        Usuario u1 = srvUsu.crear("a@a.a", "1234", "Nom A", "20");
+        Usuario u1 = srvUsu.crear("arrr@a.a", "1234", "Nom A", "20");
         Usuario u2 = srvUsu.crear("a@a.a2", "1234", "Nom B", "30");
         Usuario u3 = srvUsu.crear("a@ee.a2", "e1234", "Nom C", "40");
         
         srvUsu.modificar(u1.getId(), u1.getEmail(), u1.getPassword(), u1.getNombre(), "25");
-        assertEquals(25, srvUsu.leerUno("a@a.a").getEdad());
+        assertEquals(25, srvUsu.leerUno("arrr@a.a").getEdad());
         srvUsu.modificar(u2.getId(), "psd@dd.ee", u2.getPassword(), u2.getNombre(), "30");
         assertEquals(u2.getId(), srvUsu.leerUno("psd@dd.ee").getId());
         
@@ -89,7 +89,7 @@ public class TestServicioUsuarios {
     }
     @Test
     public void eliminarUsuarios() {
-        Usuario u1 = srvUsu.crear("a@a.a", "1234", "Nom A", "20");
+        Usuario u1 = srvUsu.crear("a@a.a3", "1234", "Nom A", "20");
         Usuario u2 = srvUsu.crear("a@a.a2", "1234", "Nom B", "30");
         Usuario u3 = srvUsu.crear("a@ee.a2", "e1234", "Nom C", "40");
         
@@ -97,7 +97,7 @@ public class TestServicioUsuarios {
         boolean b2 = srvUsu.eliminar(u2.getId());        
         boolean b3 = srvUsu.eliminar(u3.getId());
         
-        assertNull(srvUsu.leerUno("a@a.a"));
+        assertNull(srvUsu.leerUno("a@a.a3"));
         assertNull(srvUsu.leerUno(u2.getId()));
         assertNull(srvUsu.leerUno("a@ee.a2"));
         assertTrue(b1 && b2 && b3); //, "Alguno eliminarUsuarios ha fallado");
@@ -107,7 +107,7 @@ public class TestServicioUsuarios {
     public void listarTodos() {
         ArrayList<Usuario> listaCreados = new ArrayList<>();
         
-        listaCreados.add(srvUsu.crear("a@a.a", "1234", "Nom A", "20"));
+        listaCreados.add(srvUsu.crear("a@a.ab", "1234", "Nom A", "20"));
         listaCreados.add(srvUsu.crear("a@a.a2", "1234", "Nom B", "30"));
         listaCreados.add(srvUsu.crear("a@ee.a2", "e1234", "Nom C", "40"));
         
