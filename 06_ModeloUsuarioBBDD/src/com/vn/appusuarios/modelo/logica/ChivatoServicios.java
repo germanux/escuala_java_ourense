@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.appusuarios.modelo;
+package com.vn.appusuarios.modelo.logica;
 
 /**
  *
@@ -12,4 +12,5 @@ package com.appusuarios.modelo;
 public interface ChivatoServicios {
     
     void notificarError(String mensaje);
+    
 }

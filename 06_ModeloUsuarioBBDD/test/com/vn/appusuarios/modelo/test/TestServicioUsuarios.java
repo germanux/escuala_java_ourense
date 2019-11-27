@@ -1,11 +1,13 @@
+package com.vn.appusuarios.modelo.test;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 
-import com.appusuarios.modelo.ServicioUsuarios;
-import com.appusuarios.modelo.Usuario;
+import com.vn.appusuarios.modelo.logica.ServicioUsuarios;
+import com.vn.appusuarios.modelo.Usuario;
 import java.util.ArrayList;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -103,16 +105,20 @@ public class TestServicioUsuarios {
     
     @Test 
     public void listarTodos() {
-        ArrayList<Usuario> lista = srvUsu.leerTodos();
+        ArrayList<Usuario> listaCreados = new ArrayList<>();
         
-        lista.add(srvUsu.crear("a@a.a", "1234", "Nom A", "20"));
-        lista.add(srvUsu.crear("a@a.a2", "1234", "Nom B", "30"));
-        lista.add(srvUsu.crear("a@ee.a2", "e1234", "Nom C", "40"));
+        listaCreados.add(srvUsu.crear("a@a.a", "1234", "Nom A", "20"));
+        listaCreados.add(srvUsu.crear("a@a.a2", "1234", "Nom B", "30"));
+        listaCreados.add(srvUsu.crear("a@ee.a2", "e1234", "Nom C", "40"));
         
-        for (Usuario usuario : lista) {
-            assertEquals(usuario.getNombre(), 
-                    srvUsu.leerUno(usuario.getId()).getNombre());
-            srvUsu.eliminar(usuario.getId());
+        ArrayList<Usuario> listaTotal = srvUsu.leerTodos();
+        
+        for (Usuario usuario1 : listaCreados) {            
+            if (usuario1 != null && listaTotal.contains(usuario1)) {
+                srvUsu.eliminar(usuario1.getId());            
+            } else {
+                fail("No se ha añadido o no se ha encontrado en listaTotal");
+            }
         }
     }
 }

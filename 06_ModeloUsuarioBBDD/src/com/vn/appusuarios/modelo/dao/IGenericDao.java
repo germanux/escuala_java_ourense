@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.appusuarios.modelo;
+package com.vn.appusuarios.modelo.dao;
 
 import java.util.ArrayList;
 
