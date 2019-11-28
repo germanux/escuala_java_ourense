@@ -5,35 +5,25 @@
  */
 package com.vn.appusuarios.controladores;
 
+import com.vn.appusuarios.modelo.logica.ChivatoServicios;
+import com.vn.appusuarios.modelo.logica.ServicioUsuarios;
+import com.vn.appusuarios.modelo.Usuario;
 import java.io.IOException;
-
+import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.vn.appusuarios.modelo.Usuario;
-import com.vn.appusuarios.modelo.logica.ServicioUsuarios;
-
-/** Sólo hay una instancia por aplicación, 
- * que se ejecuta en su propio hilo.
- * Todos los usarios comparten el mismo servlet/JSP o derivados
+/**
  *
  * @author pc
  */
 public class UsuariosServlet extends HttpServlet {
 
-	private ServicioUsuarios srvUsu;
-		
-    @Override
-	public void init() throws ServletException {
-		// TODO Auto-generated method stub
-		super.init();
-		
-        this.srvUsu = new ServicioUsuarios();
-	}
-
-	/**
+    /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
@@ -50,10 +40,7 @@ public class UsuariosServlet extends HttpServlet {
         String nombre = request.getParameter("nombre");
         String edad = request.getParameter("edad");
         
-        // En el objeto petición, le pasamos nuestro (este servlet)
-        // servicio de usuarios. 
-        request.setAttribute("servicioUsu", this.srvUsu);
-        
+        ServicioUsuarios srvUsu = new ServicioUsuarios();
         srvUsu.setChivatoListener((String mensaje) -> {
             
             request.getSession().setAttribute("mensajeError", 
@@ -64,8 +51,7 @@ public class UsuariosServlet extends HttpServlet {
             
             Usuario usuario = srvUsu.crear(email, password, nombre, edad);
             if (usuario != null && usuario.getId() >= 0) {
-                request.getSession().setAttribute("usuario", usuario);
-                // request.setAttribute(name, o);
+                request.getSession().setAttribute("emailUsuario", email);
                 request.getRequestDispatcher("registrado.jsp")
                         .forward(request, response);
             } else {                
