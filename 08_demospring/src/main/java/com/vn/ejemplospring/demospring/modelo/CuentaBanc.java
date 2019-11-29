@@ -65,5 +65,4 @@ public class CuentaBanc extends Object implements Serializable {
 		return "CuentaBanc [id=" + id + ", iban=" + iban + ", dni=" + dni + "]";
 	}
 
-	
 }
