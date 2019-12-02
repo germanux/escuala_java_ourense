@@ -24,5 +24,7 @@ export class CuentasRestService {
     return this.httpCli.post<CuentaBanc>(this.urlApiRest, 
       nuevaCuenta, this.httpOptions);
   }
-
+  public traerTodos()  : Observable<CuentaBanc[]> {
+    return this.httpCli.get<CuentaBanc[]>(this.urlApiRest);
+  }
 }
