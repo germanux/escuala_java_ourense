@@ -11,14 +11,18 @@ export class ListaCuentasComponent implements OnInit {
 
   arrayCuentas : CuentaBanc[];
 
-  constructor(private srvCuentas : CuentasRestService) { }
+  constructor(private srvCuentas : CuentasRestService) { 
+    this.srvCuentas.alCambiar = () => {
+      this.ngOnInit();
+    };
+  }
 
   ngOnInit() {
-    this.srvCuentas.traerTodos().subscribe(
-      (cuentasTraidas: CuentaBanc[]) => {
+    this.arrayCuentas = [];
+    this.srvCuentas.traerTodos().subscribe((cuentasTraidas: CuentaBanc[]) => {
         this.arrayCuentas = cuentasTraidas;
         console.log("Respuesta AJAX: " + cuentasTraidas.toString());
-    } );
+    });
     console.log(">>> LLamada asincrona AJAX realizada");
   }
 }

@@ -16,13 +16,16 @@ export class CuentasRestService {
       'Content-Type': 'application/json'
     })
   }
+  alCambiar: any;
 
   constructor(private httpCli: HttpClient) { }
 
   public add(nuevaCuenta: CuentaBanc) : Observable<CuentaBanc>
    {
-    return this.httpCli.post<CuentaBanc>(this.urlApiRest, 
+      let observable: Observable<CuentaBanc> = this.httpCli.post<CuentaBanc>(this.urlApiRest, 
       nuevaCuenta, this.httpOptions);
+      observable.subscribe(this.alCambiar);
+    return observable;
   }
   public traerTodos()  : Observable<CuentaBanc[]> {
     return this.httpCli.get<CuentaBanc[]>(this.urlApiRest);
