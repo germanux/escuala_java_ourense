@@ -10,6 +10,7 @@ import { CuentasRestService } from '../cuentas-rest.service';
 export class ListaCuentasComponent implements OnInit {
 
   arrayCuentas : CuentaBanc[];
+  cuentaEditar: CuentaBanc = null;
 
   constructor(private srvCuentas : CuentasRestService) { 
     this.srvCuentas.alCambiar = () => {
@@ -24,5 +25,17 @@ export class ListaCuentasComponent implements OnInit {
         console.log("Respuesta AJAX: " + cuentasTraidas.toString());
     });
     console.log(">>> LLamada asincrona AJAX realizada");
+  }
+  eliminar(id: Number) {
+    this.srvCuentas.eliminar(id);
+  }
+  prepararModificar(cuentaModif: CuentaBanc) {
+    this.cuentaEditar = cuentaModif;
+  }
+  modificar(id: Number, cuentaMod: CuentaBanc) {
+    this.srvCuentas.modificar(id, cuentaMod, (c) => {
+      console.log("Modificado: " + c.toString());
+      this.cuentaEditar = null;
+    });
   }
 }

@@ -45,9 +45,10 @@ public class ServicioBancarioREST {
 		return lista;
 	}
 	@DeleteMapping("/cuentas/{id}")	//http://localhost:8080/cuentas/3
-	public void eliminarCuenta(@PathVariable Integer id) {
+	public Integer eliminarCuenta(@PathVariable Integer id) {
 		repo.deleteById(id);
-		System.out.println(">>> DELETE " + id);		
+		System.out.println(">>> DELETE " + id);
+		return id;
 	}
 	//TODO: Hacer el PUT para modificar
 	@PutMapping("/cuentas/{id}")

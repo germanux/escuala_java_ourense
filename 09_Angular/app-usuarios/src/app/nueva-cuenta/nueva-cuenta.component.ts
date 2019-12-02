@@ -24,8 +24,7 @@ export class NuevaCuentaComponent implements OnInit {
   }
   crearCuenta(): void {
     let observable: Observable<CuentaBanc>;
-    observable = this.srvCuentasRest.add(this.cuenta);
-    observable.subscribe( (objNoSexual) => {
+    observable = this.srvCuentasRest.add(this.cuenta,  (objNoSexual) => {
       console.log("Datos: " + objNoSexual["iban"]);
       this.recibido = true;
     });

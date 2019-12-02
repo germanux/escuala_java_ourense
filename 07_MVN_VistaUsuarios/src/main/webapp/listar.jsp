@@ -3,6 +3,7 @@
     Created on : 21-feb-2019, 20:42:40
     Author     : IEUser
 --%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="com.vn.appusuarios.modelo.logica.ServicioUsuarios"%>
 <%@page import="com.vn.appusuarios.modelo.Usuario"%>
 <%@page import="java.util.ArrayList"%>

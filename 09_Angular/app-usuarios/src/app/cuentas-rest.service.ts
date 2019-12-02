@@ -20,14 +20,40 @@ export class CuentasRestService {
 
   constructor(private httpCli: HttpClient) { }
 
-  public add(nuevaCuenta: CuentaBanc) : Observable<CuentaBanc>
-   {
+  // nuevaCuenta va sin ID
+  public add(nuevaCuenta: CuentaBanc, lambda: any) : Observable<CuentaBanc>
+   {  
       let observable: Observable<CuentaBanc> = this.httpCli.post<CuentaBanc>(this.urlApiRest, 
       nuevaCuenta, this.httpOptions);
-      observable.subscribe(this.alCambiar);
+      observable.subscribe((datos) => { // Datos el la cuenta con el ID
+        this.alCambiar(datos);   // Probablemente actualiza la lista
+        lambda(datos);           // Invoca a la suscripción del componente nuevo
+      });
+    return observable;
+  }
+  // nuevaCuenta va sin ID
+  public modificar(id: Number, nuevaCuenta: CuentaBanc, lambda: any) : Observable<CuentaBanc>
+   {  
+    let urlPeticionDelete = `${this.urlApiRest}/${id}`;
+      let observable: Observable<CuentaBanc> = this.httpCli.put<CuentaBanc>(
+        urlPeticionDelete, 
+        nuevaCuenta, this.httpOptions);
+        observable.subscribe((datos) => { // Datos el la cuenta con el ID
+          this.alCambiar(datos);   // Probablemente actualiza la lista
+          lambda(datos);           // Invoca a la suscripción del componente nuevo
+      });
     return observable;
   }
   public traerTodos()  : Observable<CuentaBanc[]> {
     return this.httpCli.get<CuentaBanc[]>(this.urlApiRest);
+  }
+  public eliminar(id: Number) {
+    let urlPeticionDelete = `${this.urlApiRest}/${id}`;
+    console.log(urlPeticionDelete);
+    this.httpCli.delete( urlPeticionDelete, this.httpOptions)
+        .subscribe((datos) => {
+              this.alCambiar(datos);
+              console.log("ELiminado " + id);
+    });
   }
 }

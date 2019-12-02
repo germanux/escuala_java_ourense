@@ -10,5 +10,19 @@
             <td>{{ cuenta.id }}</td>
             <td>{{ cuenta.iban }}</td>
             <td>{{ cuenta.dni }}</td>
+            <td><input value="X" style="color: red"
+                type="button" (click)="eliminar(cuenta.id)"></td>
+             <td><input value="EDIT" style="color: blue"
+                   type="button" (click)="prepararModificar(cuenta)"></td>
     </tr>
 </table>
+
+<div *ngIf="cuentaEditar !== null ">
+<table >
+                <tr><td><input [(ngModel)]="cuentaEditar.id"type="number" readonly></td></tr>
+                <tr><td><input [(ngModel)]="cuentaEditar.iban" type="text"></td></tr>
+                <tr><td><input [(ngModel)]="cuentaEditar.dni" type="text"></td></tr>
+                <td><input value="ENVIAR" style="color: blue"
+                    type="button" (click)="modificar(cuentaEditar.id, cuentaEditar)"></td>
+</table>
+</div>
