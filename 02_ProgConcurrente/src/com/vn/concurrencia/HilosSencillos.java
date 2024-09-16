@@ -84,7 +84,7 @@ public class HilosSencillos {
         
         System.out.println("\n**** end - START ****\n");
     }
-    public void ejecturarHilosRunABenSerie() {
+    public void ejecutarHilosRunABenSerie() {
         System.out.println("\n---- THREAD - RUN ----\n");
         // SIN HILOS, ejecutamos uno detrás de otro
         hiloA1.run();
